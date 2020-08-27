@@ -11,6 +11,8 @@ global $DB;
 
 $category = -1;
 
+require_capability('moodle:site/config', context_system::instance());
+
 // Unenrol students in a course category
 $courses = $DB->get_records('course', ['category' => $category]);
 
