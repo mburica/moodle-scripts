@@ -6,7 +6,7 @@ require_once '../../config.php';
 
 global $DB;
 
-$usage = 'Attempts to fix missing tags for quiz questions in quiz_slot_tags and question.name";
+$usage = 'Attempts to fix missing tags for quiz questions in quiz_slot_tags and question.name';
 
 mtrace('Quiz tag fix starting...');
 
