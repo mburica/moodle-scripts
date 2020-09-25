@@ -1,17 +1,14 @@
 <?php
 
+define('CLI_SCRIPT', true);
+
 require_once '../../config.php';
 
 global $DB;
 
-$run = optional_param('run', 0, PARAM_BOOL);
+$usage = 'Attempts to fix missing tags for quiz questions in quiz_slot_tags and question.name";
 
-require_login();
-
-if(!$run) {
-    echo 'Run = False';
-    exit();
-}
+mtrace('Quiz tag fix starting...');
 
 // Get all random question quiz slots and their corresponding question info
 $quiz_slots = $DB->get_records_sql("
@@ -73,3 +70,6 @@ foreach($quiz_slots as $slot) {
         }
     }
 }
+
+mtrace('Quiz tag fix finished.');
+
