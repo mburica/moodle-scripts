@@ -1,0 +1,11 @@
+# Apply patch from a different repository
+  - Add the repository as a seconday remote
+    - `git remote add NAME URL`
+  - Fetch the new repository
+    - `git fetch NAME`
+  - Check logs of new remote for the commit you need
+    - `git log NAME/BRANCH`
+  - Copy the commit HASH
+  - Cherry pick the commit we need
+    - `git cherry-pick HASH`
+  - Push your changes
