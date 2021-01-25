@@ -66,3 +66,47 @@ public function get_outofsync_records() {
             'unenrol' => $to_be_unenroled_users
         ];
     }
+
+/// test.php output CLI
+
+<?php
+
+//define('CLI_SCRIPT', true);
+
+require_once '../../config.php';
+require_once 'locallib.php';
+
+$processor = \local_autoenrol\processor::load();
+$data = $processor->get_outofsync_records();
+
+$csvdata = [];
+
+foreach($data['enrol'] as $course => $record) {
+    if(!empty($record[0])) {
+        foreach($record[0] as $line) {
+            $csvdata [] = [$line['username'], $course, $line['role'], 'enrol'];
+        }
+    }
+}
+
+foreach($data['unenrol'] as $course => $record) {
+    if(!empty($record[0])) {
+        foreach($record[0] as $line) {
+            $csvdata [] = [$line['username'], $course, $line['role'], 'unenrol'];
+        }
+    }
+}
+
+// output headers so that the file is downloaded rather than displayed
+header('Content-Type: text/csv; charset=utf-8');
+header('Content-Disposition: attachment; filename=data.csv');
+
+// create a file pointer connected to the output stream
+$output = fopen('php://output', 'w');
+
+// output the column headings
+fputcsv($output, array('username', 'course', 'role', 'action'));
+
+foreach($csvdata as $row) {
+    fputcsv($output, $row);
+}
