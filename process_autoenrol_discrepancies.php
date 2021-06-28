@@ -4,9 +4,17 @@ define('CLI_SCRIPT', true);
 
 require(__DIR__.'/../../config.php');
 
+/**
+* EDIT HERE
+*/
+$category = 54;
+/**
+* STOP EDITING
+*/
+
 // Get list of active course shortnames for category = 53
 // Active course is defined as any course that has not yet passed its enddate
-$active_courses = $DB->get_records_sql("SELECT shortname, id FROM {course} WHERE enddate <= now() and category = 53");
+$active_courses = $DB->get_records_sql("SELECT shortname, id FROM {course} WHERE enddate <= now() and category = $category");
 
 // Get old and new file from file system
 $fs = get_file_storage();
@@ -99,7 +107,13 @@ foreach($to_be_enroled_users as $shortname => $users) {
             }
 
             // Enrol user in the course
+            /**
+            * EDIT HERE
+            */
             //enrol_try_internal_enrol($course->id, $user->id, $roleid);    // RITO UNCOMMENT THIS LINE TO PERFORM ENROLS
+            /**
+            * STOP EDITING
+            */
             echo $course->shortname . ' - ' . $user->username . ' - ' . $roleid . PHP_EOL;
         }
     }
@@ -130,15 +144,14 @@ foreach($to_be_unenroled_users as $shortname => $users) {
             $enrolplugin = enrol_get_plugin($instance->enrol);
 
             // Unenrol the user
+            /**
+            * EDIT HERE
+            */
             //$enrolplugin->unenrol_user($instance, $user->id);  // RITO UNCOMMENT THIS LINE TO PERFORM UNENROLLS
+            /**
+            * STOP EDITING
+            */
             echo $course->shortname . ' - ' . $user->username . PHP_EOL;
-        }
-
-        // Log the unenrol attempt
-        $success = !is_enrolled($context, $user);
-        //$this->log_unenrol($course->id, $user->id, $this->runid, $success);
-        if($success) {
-            //$this->rowcount++;
         }
     }
 }
